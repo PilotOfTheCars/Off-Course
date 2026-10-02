@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#17344d" />
+  <meta name="description" content="OFF COURSE — The GeoFS Magazine. Community aviation, lore, photography, virtual airlines, investigations and whatever escaped into the group chat." />
+  <meta property="og:title" content="OFF COURSE — The GeoFS Magazine" />
+  <meta property="og:description" content="Community aviation. No boring flights." />
+  <meta property="og:image" content="assets/issue-01-cover.jpg" />
+  <title>OFF COURSE — The GeoFS Magazine</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="OFF COURSE home">
+      <span class="brand-main">OFF COURSE</span>
+      <span class="brand-sub">THE GEOFS MAGAZINE</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a class="active" href="index.html">Home</a>
+      <a href="library.html">Library</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="home-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">THE COMMUNITY IN FLIGHT</p>
+        <h1>WE WENT<br><em>OFF COURSE.</em></h1>
+        <p class="lede">OFF COURSE is a community-made GeoFS magazine about planes, virtual airlines, screenshots, photography, server history, ridiculous investigations, lore and the kind of events that somehow become important because somebody saved the Discord message.</p>
+        <div class="actions">
+          <a class="button primary" href="library.html">Enter the library</a>
+          <button class="button ghost" data-reader="e8e3e8e0c5" data-issue="01">Read the latest issue</button>
+        </div>
+      </div>
+
+      <a class="cover-wrap" href="library.html" aria-label="Browse the OFF COURSE issue library">
+        <span class="cover-shadow" aria-hidden="true"></span>
+        <img src="assets/issue-01-cover.jpg" alt="Cover of OFF COURSE Issue 01, October 2026" />
+        <span class="cover-hint">ISSUE 01 / OUT NOW →</span>
+      </a>
+    </section>
+
+    <section class="ticker" aria-label="Magazine topics">
+      <div>AVIATION / GEOFS / COMMUNITY / LORE / PHOTOGRAPHY / VIRTUAL AIRLINES / INVESTIGATIONS / ABSOLUTE NONSENSE /</div>
+    </section>
+
+    <section class="manifesto section" id="about">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">WHAT IS OFF COURSE?</p>
+          <h2>A magazine for the part of GeoFS that never stays in the flight plan.</h2>
+        </div>
+        <p>We started with aircraft. Then the airlines started arguing, somebody made lore, somebody else found penguins, and apparently the correct response was to make a magazine.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article><span>01</span><h3>Community stories</h3><p>Events, virtual airlines, organisations, server history and the tiny Discord moments that somehow turn into community lore.</p></article>
+        <article><span>02</span><h3>Aviation</h3><p>Real aircraft, GeoFS flying, airports, approaches, photography and whatever machine has taken over the editor's brain this week.</p></article>
+        <article><span>03</span><h3>Not terribly serious</h3><p>OFF COURSE looks like a magazine. This does not mean it has agreed to behave like one. Expect investigations nobody requested and jokes that survived editing.</p></article>
+        <article><span>04</span><h3>Made by the community</h3><p>Created by GASA with Canada Driven Studios, with Issue 01 sponsored by UCG. The stories come from the weird little world around GeoFS.</p></article>
+      </div>
+    </section>
+
+    <section class="latest-band">
+      <div class="latest-inner">
+        <div>
+          <p class="eyebrow">LATEST RELEASE</p>
+          <h2>Issue 01:<br>The Lore Issue.</h2>
+          <p>79 pages. GCRP, Cubic, GASA, MRP, EMS, penguins, add-ons, real aviation, Madeira, photography and enough side quests to make the contents page nervous.</p>
+          <div class="actions">
+            <button class="button light" data-reader="e8e3e8e0c5" data-issue="01">Read Issue 01</button>
+            <a class="text-link" href="library.html">See the full library →</a>
+          </div>
+        </div>
+        <img src="assets/issue-01-cover.jpg" alt="OFF COURSE Issue 01 cover" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="section library-callout">
+      <p class="eyebrow">THE LIBRARY</p>
+      <div>
+        <h2>Every issue lives here.</h2>
+        <p>The library is the permanent shelf for OFF COURSE. New editions will appear there with their covers, release dates and embedded page-turning readers.</p>
+        <a class="button primary" href="library.html">Browse all issues</a>
+      </div>
+    </section>
+  </main>
+
+  <footer><div><strong>OFF COURSE</strong><span>THE GEOFS MAGAZINE</span></div><p>THE NEXT INCIDENT IS ALREADY BEING TYPED.</p></footer>
+
+  <dialog class="reader" id="reader-dialog" aria-label="Magazine reader">
+    <div class="reader-bar">
+      <div><strong id="reader-title">OFF COURSE — ISSUE 01</strong><span>THE GEOFS MAGAZINE</span></div>
+      <div class="reader-actions">
+        <a id="reader-external" href="https://heyzine.com/flip-book/e8e3e8e0c5.html" target="_blank" rel="noopener">Open separately ↗</a>
+        <button id="reader-close" aria-label="Close reader">×</button>
+      </div>
+    </div>
+    <div class="reader-frame-wrap"><iframe id="reader-frame" title="OFF COURSE magazine reader" allowfullscreen allow="autoplay; fullscreen; clipboard-write" scrolling="no"></iframe></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
