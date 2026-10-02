@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#17344d" />
+  <meta name="description" content="The OFF COURSE issue library — browse and read every edition of The GeoFS Magazine." />
+  <meta property="og:title" content="OFF COURSE — Issue Library" />
+  <meta property="og:description" content="Every OFF COURSE issue, in one place." />
+  <meta property="og:image" content="assets/issue-01-cover.jpg" />
+  <title>Library — OFF COURSE</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="index.html" aria-label="OFF COURSE home"><span class="brand-main">OFF COURSE</span><span class="brand-sub">THE GEOFS MAGAZINE</span></a><nav aria-label="Main navigation"><a href="index.html">Home</a><a class="active" href="library.html">Library</a><a href="index.html#about">About</a></nav></header>
+  <main>
+    <section class="library-hero"><p class="eyebrow">THE OFF COURSE LIBRARY</p><h1>EVERY ISSUE.<br><em>ONE SHELF.</em></h1><p class="lede">Open an issue and read it directly in the browser. New magazines will be added here as soon as we finish creating far more pages than originally planned.</p><div class="library-stats"><div><strong id="released-count">1</strong><span>ISSUE RELEASED</span></div><div><strong id="page-count">79</strong><span>PAGES PUBLISHED</span></div><div><strong>∞</strong><span>INCIDENTS PENDING</span></div></div></section>
+    <section class="section archive-section"><div class="section-heading compact"><div><p class="eyebrow">ISSUE ARCHIVE</p><h2>Choose your incident.</h2></div><p>Tap any released cover to open the page-turning reader. Future issues stay on the shelf until they're ready.</p></div><div class="issue-grid" id="issue-grid"></div></section>
+  </main>
+  <footer><div><strong>OFF COURSE</strong><span>THE GEOFS MAGAZINE</span></div><p>THE NEXT INCIDENT IS ALREADY BEING TYPED.</p></footer>
+  <dialog class="reader" id="reader-dialog" aria-label="Magazine reader"><div class="reader-bar"><div><strong id="reader-title">OFF COURSE</strong><span>THE GEOFS MAGAZINE</span></div><div class="reader-actions"><a id="reader-external" href="#" target="_blank" rel="noopener">Open separately ↗</a><button id="reader-close" aria-label="Close reader">×</button></div></div><div class="reader-frame-wrap"><iframe id="reader-frame" title="OFF COURSE magazine reader" allowfullscreen allow="autoplay; fullscreen; clipboard-write" scrolling="no"></iframe></div></dialog>
+  <script src="app.js"></script>
+</body></html>
