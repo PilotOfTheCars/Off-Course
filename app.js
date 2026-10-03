@@ -20,6 +20,78 @@ const issues = [
   },
 ];
 
+// Google Analytics 4. Add the site's Measurement ID here (G-XXXXXXXXXX).
+// Until an ID is added, the consent banner works but no analytics request is sent.
+const GA_MEASUREMENT_ID = "";
+const CONSENT_COOKIE = "offcourse_analytics";
+
+function readCookie(name) {
+  const match = document.cookie.split("; ").find(row => row.startsWith(`${name}=`));
+  return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : null;
+}
+function writeCookie(name, value, days = 180) {
+  const maxAge = days * 24 * 60 * 60;
+  document.cookie = `${name}=${encodeURIComponent(value)}; Max-Age=${maxAge}; Path=/; SameSite=Lax; Secure`;
+}
+function enableAnalytics() {
+  if (!GA_MEASUREMENT_ID || window.__offCourseAnalyticsLoaded) return;
+  window.__offCourseAnalyticsLoaded = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("consent", "default", {
+    analytics_storage: "granted",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied"
+  });
+  window.gtag("config", GA_MEASUREMENT_ID, {
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false
+  });
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`;
+  document.head.appendChild(script);
+}
+function trackEvent(name, params = {}) {
+  if (typeof window.gtag === "function" && readCookie(CONSENT_COOKIE) === "yes") {
+    window.gtag("event", name, params);
+  }
+}
+function addCookieBanner() {
+  const choice = readCookie(CONSENT_COOKIE);
+  if (choice === "yes") {
+    enableAnalytics();
+    return;
+  }
+  if (choice === "no") return;
+
+  const banner = document.createElement("aside");
+  banner.className = "cookie-banner";
+  banner.setAttribute("aria-label", "Analytics cookie choice");
+  banner.innerHTML = `
+    <div class="cookie-copy">
+      <strong>COOKIES. YES, ACTUAL COOKIES.</strong>
+      <p>Allow anonymous analytics so we can count visits and see which OFF COURSE pages get read. No advertising cookies.</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-accept" type="button">ACCEPT COOKIES</button>
+      <button class="cookie-decline" type="button">NO THANKS</button>
+    </div>`;
+  document.body.appendChild(banner);
+
+  banner.querySelector(".cookie-accept").addEventListener("click", () => {
+    writeCookie(CONSENT_COOKIE, "yes");
+    enableAnalytics();
+    banner.remove();
+  });
+  banner.querySelector(".cookie-decline").addEventListener("click", () => {
+    writeCookie(CONSENT_COOKIE, "no");
+    banner.remove();
+  });
+}
+
 const grid = document.querySelector("#issue-grid");
 const dialog = document.querySelector("#reader-dialog");
 const frame = document.querySelector("#reader-frame");
@@ -73,6 +145,7 @@ function openReader(id, issueNumber = "01") {
   external.href = url;
   dialog.showModal();
   document.body.style.overflow = "hidden";
+  trackEvent("issue_open", { issue_number: issueNumber });
 }
 function closeReader() {
   if (!dialog || !dialog.open) return;
@@ -81,6 +154,7 @@ function closeReader() {
   document.body.style.overflow = "";
 }
 renderArchive();
+addCookieBanner();
 document.addEventListener("click", event => {
   const trigger = event.target.closest("[data-reader]");
   if (trigger) openReader(trigger.dataset.reader, trigger.dataset.issue || "01");
