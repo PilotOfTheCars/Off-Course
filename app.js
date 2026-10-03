@@ -164,3 +164,69 @@ if (dialog) {
   dialog.addEventListener("click", event => { if (event.target === dialog) closeReader(); });
   dialog.addEventListener("cancel", event => { event.preventDefault(); closeReader(); });
 }
+
+// --- Cookie consent + analytics hook ---
+// Add the GA4 Measurement ID (G-XXXXXXXXXX) here when the Analytics property exists.
+// Until then, the banner remembers the visitor's preference but sends no analytics data.
+const OFFCOURSE_GA_ID = "";
+
+function getCookie(name) {
+  return document.cookie.split("; ").find(row => row.startsWith(name + "="))?.split("=")[1] || null;
+}
+
+function setCookie(name, value, days = 365) {
+  const maxAge = days * 24 * 60 * 60;
+  document.cookie = `${name}=${encodeURIComponent(value)}; Max-Age=${maxAge}; Path=/; SameSite=Lax; Secure`;
+}
+
+function loadAnalytics() {
+  if (!OFFCOURSE_GA_ID || document.querySelector("script[data-offcourse-analytics]")) return;
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${OFFCOURSE_GA_ID}`;
+  script.dataset.offcourseAnalytics = "true";
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", OFFCOURSE_GA_ID, { anonymize_ip: true });
+}
+
+function buildCookieBanner() {
+  const choice = getCookie("offcourse_cookie_choice");
+  if (choice === "accepted") {
+    loadAnalytics();
+    return;
+  }
+  if (choice === "rejected") return;
+
+  const banner = document.createElement("aside");
+  banner.className = "cookie-banner";
+  banner.setAttribute("aria-label", "Cookie choices");
+  banner.innerHTML = `
+    <div class="cookie-copy">
+      <strong>COOKIESSSS.</strong>
+      <p>OFF COURSE would like to use optional analytics cookies to count visits and see what people actually read. No advertising cookies. No selling your data. The necessary cookie only remembers this choice.</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-accept" type="button">ACCEPT COOKIES</button>
+      <button class="cookie-reject" type="button">NO THANKS</button>
+    </div>`;
+
+  document.body.appendChild(banner);
+  requestAnimationFrame(() => banner.classList.add("show"));
+
+  banner.querySelector(".cookie-accept").addEventListener("click", () => {
+    setCookie("offcourse_cookie_choice", "accepted");
+    loadAnalytics();
+    banner.classList.remove("show");
+    setTimeout(() => banner.remove(), 250);
+  });
+  banner.querySelector(".cookie-reject").addEventListener("click", () => {
+    setCookie("offcourse_cookie_choice", "rejected");
+    banner.classList.remove("show");
+    setTimeout(() => banner.remove(), 250);
+  });
+}
+
+buildCookieBanner();
